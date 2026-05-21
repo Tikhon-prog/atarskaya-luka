@@ -41,6 +41,19 @@
         .footer a { color: var(--yellow-light); text-decoration: none; margin: 0 0.5rem; }
         .footer a:hover { color: var(--yellow); }
         .footer-links { margin: 1rem 0; }
+        .delete-btn {
+    margin-top: 0.5rem;
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.delete-btn:hover {
+    background: #e74c3c;
+}
     </style>
 </head>
 <body>
@@ -93,6 +106,20 @@
     </footer>
 
     <script>
+
+
+
+// У каждого посетителя свой уникальный ID (хранится в localStorage)
+function getAuthorId() {
+    let authorId = localStorage.getItem('atar_author_id');
+    if (!authorId) {
+        authorId = 'author_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('atar_author_id', authorId);
+    }
+    return authorId;
+}
+
+        
         // Strict filter for bad language & anime
         const badWords = [
           // Harsh obscene words, multiple languages, and anime references
@@ -111,20 +138,37 @@
 
         // Load reviews from localStorage
         function loadReviews() {
-            const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-            const container = document.getElementById('reviewsList');
-            container.innerHTML = '';
-            reviews.reverse().forEach(review => {
-                const card = document.createElement('div');
-                card.className = 'review-card';
-                card.innerHTML = `
-                    <h3>${review.name}</h3>
-                    <div class="date">${review.date}</div>
-                    <div class="text">${review.text}</div>
-                `;
-                container.appendChild(card);
-            });
+    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+    const container = document.getElementById('reviewsList');
+    const currentAuthorId = getAuthorId();
+    container.innerHTML = '';
+    reviews.forEach((review, index) => {
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        let deleteButtonHTML = '';
+        if (review.authorId && review.authorId === currentAuthorId) {
+            deleteButtonHTML = `<button class="delete-btn" data-index="${index}">Delete</button>`;
         }
+        card.innerHTML = `
+            <h3>${review.name}</h3>
+            <div class="date">${review.date}</div>
+            <div class="text">${review.text}</div>
+            ${deleteButtonHTML}
+        `;
+        container.appendChild(card);
+    });
+
+    // Вешаем обработчики на все кнопки удаления
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const idx = this.getAttribute('data-index');
+            const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+            reviews.splice(idx, 1);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            loadReviews();
+        });
+    });
+}
 
         // Save new review
         document.getElementById('reviewForm').addEventListener('submit', function(e) {
@@ -137,7 +181,7 @@
             const now = new Date();
             const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) + ' at ' + now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
-            const review = { name, text: cleanText, date: dateStr };
+            const review = { name, text: cleanText, date: dateStr, authorId: getAuthorId() };
             const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
             reviews.push(review);
             localStorage.setItem('reviews', JSON.stringify(reviews));
