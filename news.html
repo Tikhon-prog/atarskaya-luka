@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости — Атарская лука</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --yellow: #f4d03f; --yellow-light: #fcf3cf; --green: #27ae60; --green-dark: #1e8449; --text: #2c3e50; --bg: #f9f9f9; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--yellow), var(--green)); padding: 1.2rem 1.5rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header h1 { color: var(--white); font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; list-style: none; }
+        .nav a { color: var(--white); text-decoration: none; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 30px; transition: background 0.3s; }
+        .nav a:hover, .nav a.active { background: rgba(255,255,255,0.25); }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .news-item { background: var(--white); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.03); transition: transform 0.3s; }
+        .news-item:hover { transform: translateY(-3px); }
+        .news-item h3 { color: var(--green-dark); margin-bottom: 0.5rem; }
+        .news-item .date { color: #888; font-size: 0.9rem; margin-bottom: 0.8rem; }
+        .news-item p { color: #555; }
+        .footer { background: var(--green-dark); color: var(--white); padding: 2rem; text-align: center; margin-top: 3rem; }
+        .footer a { color: var(--yellow-light); text-decoration: none; margin: 0 0.5rem; }
+        .footer a:hover { color: var(--yellow); }
+        .footer-links { margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🌿 Атарская лука</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О проекте</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
+                <li><a href="news.html" class="active">Новости</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 style="color: var(--green-dark); text-align: center; margin-bottom: 2rem;">Новости и события</h2>
+        <!-- Пример новости — скопируйте блок для новых новостей -->
+        <div class="news-item">
+            <h3>Ваш заголовок новости</h3>
+            <div class="date">1 января 2025</div>
+            <p>Ваш текст новости здесь.</p>
+        </div>
+        <div class="news-item">
+            <h3>Ещё одна новость</h3>
+            <div class="date">10 февраля 2025</div>
+            <p>Ваш текст здесь.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🌐 Проект «Атарская лука»</p>
+        <div class="footer-links">
+            <a href="index.html">Главная</a> |
+            <a href="about.html">О проекте</a> |
+            <a href="gallery.html">Галерея</a> |
+            <a href="news.html">Новости</a> |
+            <a href="reviews.html">Отзывы</a> |
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <p class="copy">© 2025 Команда 7 класса КФМЛ</p>
+    </footer>
+</body>
+</html>
