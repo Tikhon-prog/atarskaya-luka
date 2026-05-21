@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О проекте — Атарская лука</title>
+    <title>About — Atarskaya Meadow</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Общие стили как на главной */
         :root { --yellow: #f4d03f; --yellow-light: #fcf3cf; --green: #27ae60; --green-dark: #1e8449; --text: #2c3e50; --bg: #f9f9f9; --white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
@@ -16,7 +15,7 @@
         .nav a { color: var(--white); text-decoration: none; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 30px; transition: background 0.3s; }
         .nav a:hover, .nav a.active { background: rgba(255,255,255,0.25); }
         .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
-        .block { background: var(--white); border-radius: 24px; padding: 3rem 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .block { background: var(--white); border-radius: 24px; padding: 3rem 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); opacity: 0; transform: translateY(30px); transition: opacity 0.4s, transform 0.4s; }
         .block.visible { opacity: 1; transform: translateY(0); }
         .block h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--green-dark); }
         .block p { margin-bottom: 1rem; font-size: 1.1rem; color: #555; }
@@ -28,45 +27,45 @@
 </head>
 <body>
     <header class="header">
-        <h1>🌿 Атарская лука</h1>
+        <h1>🌿 Atarskaya Meadow</h1>
         <nav>
             <ul class="nav">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html" class="active">О проекте</a></li>
-                <li><a href="gallery.html">Галерея</a></li>
-                <li><a href="news.html">Новости</a></li>
-                <li><a href="reviews.html">Отзывы</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
         <div class="block visible">
-            <h2>О нашем проекте</h2>
-            <p>Ваш текст здесь. Кто вы, зачем делаете сайт.</p>
+            <h2>About Our Project</h2>
+            <p>We are students who want to make our world a better place. Our website is about Atarskaya Meadow. We would like people to help protect nature, take care of the meadow and become volunteers.</p>
         </div>
         <div class="block">
-            <h2>Наша команда</h2>
-            <p>Ваш текст здесь. Представьте участников, расскажите о ролях.</p>
+            <h2>Our Team</h2>
+            <p>Our team is friendly and creative! We work together to write texts, find interesting facts, take photos and build this site. Everybody has their own role. We want to make a difference!</p>
         </div>
         <div class="block">
-            <h2>Цели и планы</h2>
-            <p>Ваш текст здесь.</p>
+            <h2>Goals and Plans</h2>
+            <p>We want to inform people about nature in our region and show why it is important to protect plants, animals and clean the environment. Our plan is to share new ideas and invite everyone to join us. Let's save nature together!</p>
         </div>
     </div>
 
     <footer class="footer">
-        <p>🌐 Проект «Атарская лука» — сохраним природу вместе</p>
+        <p>🌐 "Atarskaya Meadow" project — Let's save nature together!</p>
         <div class="footer-links">
-            <a href="index.html">Главная</a> |
-            <a href="about.html">О проекте</a> |
-            <a href="gallery.html">Галерея</a> |
-            <a href="news.html">Новости</a> |
-            <a href="reviews.html">Отзывы</a> |
-            <a href="contacts.html">Контакты</a>
+            <a href="index.html">Home</a> |
+            <a href="about.html">About</a> |
+            <a href="gallery.html">Gallery</a> |
+            <a href="news.html">News</a> |
+            <a href="reviews.html">Reviews</a> |
+            <a href="contacts.html">Contacts</a>
         </div>
-        <p class="copy">© 2025 Команда 7 класса КФМЛ</p>
+        <p class="copy">© 2026 7th Grade Team, KFML</p>
     </footer>
 
     <script>
