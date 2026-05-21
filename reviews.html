@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы — Атарская лука</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --yellow: #f4d03f; --yellow-light: #fcf3cf; --green: #27ae60; --green-dark: #1e8449; --text: #2c3e50; --bg: #f9f9f9; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--yellow), var(--green)); padding: 1.2rem 1.5rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header h1 { color: var(--white); font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; list-style: none; }
+        .nav a { color: var(--white); text-decoration: none; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 30px; transition: background 0.3s; }
+        .nav a:hover, .nav a.active { background: rgba(255,255,255,0.25); }
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .review-form { background: var(--white); border-radius: 24px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .review-form h2 { color: var(--green-dark); margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 600; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 12px; font-family: inherit; font-size: 1rem; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .btn { background: var(--green); color: var(--white); padding: 0.8rem 2rem; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        .btn:hover { background: var(--green-dark); }
+        .reviews-list { margin-top: 2rem; }
+        .review-card { background: var(--white); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .review-card h3 { color: var(--green-dark); margin-bottom: 0.3rem; }
+        .review-card .date { color: #888; font-size: 0.85rem; margin-bottom: 0.8rem; }
+        .review-card .text { color: #555; }
+        .footer { background: var(--green-dark); color: var(--white); padding: 2rem; text-align: center; margin-top: 3rem; }
+        .footer a { color: var(--yellow-light); text-decoration: none; margin: 0 0.5rem; }
+        .footer a:hover { color: var(--yellow); }
+        .footer-links { margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🌿 Атарская лука</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О проекте</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="reviews.html" class="active">Отзывы</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="review-form">
+            <h2>Оставьте отзыв</h2>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" required placeholder="Иван">
+                </div>
+                <div class="form-group">
+                    <label for="text">Ваш отзыв</label>
+                    <textarea id="text" required placeholder="Напишите, что думаете..."></textarea>
+                </div>
+                <button type="submit" class="btn">Отправить</button>
+            </form>
+        </div>
+
+        <div class="reviews-list" id="reviewsList">
+            <!-- Отзывы будут добавляться сюда -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🌐 Проект «Атарская лука»</p>
+        <div class="footer-links">
+            <a href="index.html">Главная</a> |
+            <a href="about.html">О проекте</a> |
+            <a href="gallery.html">Галерея</a> |
+            <a href="news.html">Новости</a> |
+            <a href="reviews.html">Отзывы</a> |
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <p class="copy">© 2025 Команда 7 класса КФМЛ</p>
+    </footer>
+
+    <script>
+        // Фильтр нецензурных слов
+        const badWords = ['badword1', 'badword2', 'плохоеслово']; // добавьте свои слова
+        function censor(text) {
+            let cleanText = text;
+            badWords.forEach(word => {
+                const regex = new RegExp(word, 'gi');
+                cleanText = cleanText.replace(regex, '***');
+            });
+            return cleanText;
+        }
+
+        // Загрузка отзывов из localStorage
+        function loadReviews() {
+            const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+            const container = document.getElementById('reviewsList');
+            container.innerHTML = '';
+            reviews.reverse().forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.innerHTML = `
+                    <h3>${review.name}</h3>
+                    <div class="date">${review.date}</div>
+                    <div class="text">${review.text}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Сохранение нового отзыва
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const rawText = document.getElementById('text').value.trim();
+            if (!name || !rawText) return;
+
+            const cleanText = censor(rawText);
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) + ' в ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+            const review = { name, text: cleanText, date: dateStr };
+            const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+            reviews.push(review);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+
+            // Очистка формы
+            document.getElementById('name').value = '';
+            document.getElementById('text').value = '';
+
+            loadReviews();
+        });
+
+        loadReviews();
+    </script>
+</body>
+</html>
