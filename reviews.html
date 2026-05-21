@@ -15,45 +15,27 @@
         .nav a { color: var(--white); text-decoration: none; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 30px; transition: background 0.3s; }
         .nav a:hover, .nav a.active { background: rgba(255,255,255,0.25); }
         .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
-        .review-form { background: var(--white); border-radius: 24px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .review-form h2 { color: var(--green-dark); margin-bottom: 1.5rem; }
+        .block { background: var(--white); border-radius: 24px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); opacity: 0; transform: translateY(30px); transition: opacity 0.4s, transform 0.4s; }
+        .block.visible { opacity: 1; transform: translateY(0); }
+        .block h2 { color: var(--green-dark); margin-bottom: 1rem; }
+        .block p { margin-bottom: 1rem; font-size: 1.1rem; }
         .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 600; }
         .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 12px; font-family: inherit; font-size: 1rem; }
         .form-group textarea { resize: vertical; min-height: 100px; }
         .btn { background: var(--green); color: var(--white); padding: 0.8rem 2rem; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
         .btn:hover { background: var(--green-dark); }
-        .review-form, .review-card {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.4s, transform 0.4s;
-}
-.review-form.visible, .review-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-        .reviews-list { margin-top: 2rem; }
-        .review-card { background: var(--white); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .review-card { background: var(--white); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); opacity: 0; transform: translateY(30px); transition: opacity 0.4s, transform 0.4s; }
+        .review-card.visible { opacity: 1; transform: translateY(0); }
         .review-card h3 { color: var(--green-dark); margin-bottom: 0.3rem; }
         .review-card .date { color: #888; font-size: 0.85rem; margin-bottom: 0.8rem; }
         .review-card .text { color: #555; }
+        .delete-btn { margin-top: 0.5rem; background: #c0392b; color: white; border: none; padding: 0.3rem 1rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
+        .delete-btn:hover { background: #e74c3c; }
         .footer { background: var(--green-dark); color: var(--white); padding: 2rem; text-align: center; margin-top: 3rem; }
         .footer a { color: var(--yellow-light); text-decoration: none; margin: 0 0.5rem; }
         .footer a:hover { color: var(--yellow); }
         .footer-links { margin: 1rem 0; }
-        .delete-btn {
-    margin-top: 0.5rem;
-    background: #c0392b;
-    color: white;
-    border: none;
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-.delete-btn:hover {
-    background: #e74c3c;
-}
     </style>
 </head>
 <body>
@@ -72,28 +54,35 @@
     </header>
 
     <div class="container">
-        <div class="review-form">
-            <h2>Leave your review</h2>
+        <!-- Форма отправки -->
+        <div class="block" id="formBlock">
+            <h2>Leave a Review</h2>
+            <p>Share your opinion – no account needed!</p>
             <form id="reviewForm">
                 <div class="form-group">
-                    <label for="name">Your name</label>
-                    <input type="text" id="name" required placeholder="E.g. Ivan">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="E.g. Alex">
                 </div>
                 <div class="form-group">
-                    <label for="text">Your review</label>
-                    <textarea id="text" required placeholder="Write what you think..."></textarea>
+                    <label for="text">Your Review</label>
+                    <textarea id="text" required placeholder="Write your thoughts..."></textarea>
                 </div>
                 <button type="submit" class="btn">Send</button>
             </form>
+            <p id="formStatus" style="margin-top:1rem; color: var(--green-dark);"></p>
         </div>
 
-        <div class="reviews-list" id="reviewsList">
-            <!-- Reviews will appear here -->
+        <!-- Список отзывов -->
+        <div class="block" id="reviewsBlock">
+            <h2>What People Say</h2>
+            <div id="reviewsList">
+                <p>No reviews yet. Be the first!</p>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
-        <p>🌐 "Atarskaya Meadow" project</p>
+        <p>🌐 "Atarskaya Meadow" project — Let's save nature together!</p>
         <div class="footer-links">
             <a href="index.html">Home</a> |
             <a href="about.html">About</a> |
@@ -106,102 +95,105 @@
     </footer>
 
     <script>
-
-
-
-// У каждого посетителя свой уникальный ID (хранится в localStorage)
-function getAuthorId() {
-    let authorId = localStorage.getItem('atar_author_id');
-    if (!authorId) {
-        authorId = 'author_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('atar_author_id', authorId);
-    }
-    return authorId;
-}
-
-        
-        // Strict filter for bad language & anime
-        const badWords = [
-          // Harsh obscene words, multiple languages, and anime references
-          'сука','блядь','пидор','еблан','пиздец','хуй','fuck','shit','bitch','asshole','jerk','bastard','moron','cunt','dick','faggot','twat','whore','nigger','nigga','motherfucker','retard','idiot','bollocks','arse','wanker','pussy','slut','cock','douche','damn','fucking','shithead','faggot',
-          // Common anime references (for moderation, per request)
-          'аниме','anime','naruto','one piece','bleach','dragon ball','sakura','naruto','sasuke','otaku','hentai','ecchi','waifu','manga','yaoi','yuri','iseka','senpai','kawaii','うちは','ナルト','アニメ','ドラゴンボール','ワンピース','うずまき','エッチ','ヤオイ','百合'
-        ];
-        function censor(text) {
-            let cleanText = text;
-            badWords.forEach(word => {
-                const regex = new RegExp(word, 'gi');
-                cleanText = cleanText.replace(regex, '***');
-            });
-            return cleanText;
+        // Generate unique author ID per browser
+        function getAuthorId() {
+            let authorId = localStorage.getItem('atar_author_id');
+            if (!authorId) {
+                authorId = 'author_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('atar_author_id', authorId);
+            }
+            return authorId;
         }
 
-        // Load reviews from localStorage
+        // Load and display reviews
         function loadReviews() {
-    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-    const container = document.getElementById('reviewsList');
-    const currentAuthorId = getAuthorId();
-    container.innerHTML = '';
-    reviews.forEach((review, index) => {
-        const card = document.createElement('div');
-        card.className = 'review-card';
-        let deleteButtonHTML = '';
-        if (review.authorId && review.authorId === currentAuthorId) {
-            deleteButtonHTML = `<button class="delete-btn" data-index="${index}">Delete</button>`;
-        }
-        card.innerHTML = `
-            <h3>${review.name}</h3>
-            <div class="date">${review.date}</div>
-            <div class="text">${review.text}</div>
-            ${deleteButtonHTML}
-        `;
-        container.appendChild(card);
-    });
-
-    // Вешаем обработчики на все кнопки удаления
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const idx = this.getAttribute('data-index');
             const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-            reviews.splice(idx, 1);
-            localStorage.setItem('reviews', JSON.stringify(reviews));
-            loadReviews();
-        });
-    });
-}
+            const container = document.getElementById('reviewsList');
+            const currentAuthorId = getAuthorId();
+            if (reviews.length === 0) {
+                container.innerHTML = '<p>No reviews yet. Be the first!</p>';
+                return;
+            }
+            container.innerHTML = '';
+            reviews.reverse().forEach((review, index) => {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                let deleteButtonHTML = '';
+                if (review.authorId && review.authorId === currentAuthorId) {
+                    deleteButtonHTML = `<button class="delete-btn" data-index="${index}">Delete</button>`;
+                }
+                card.innerHTML = `
+                    <h3>${review.name}</h3>
+                    <div class="date">${review.date}</div>
+                    <div class="text">${review.text}</div>
+                    ${deleteButtonHTML}
+                `;
+                container.appendChild(card);
+            });
 
-        // Save new review
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = this.getAttribute('data-index');
+                    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+                    // Convert reversed index back to original array index
+                    const actualIndex = reviews.length - 1 - parseInt(idx);
+                    reviews.splice(actualIndex, 1);
+                    localStorage.setItem('reviews', JSON.stringify(reviews));
+                    loadReviews();
+                });
+            });
+
+            // Animate newly added review cards
+            const cards = document.querySelectorAll('.review-card');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            cards.forEach(card => observer.observe(card));
+        }
+
+        // Handle form submission
         document.getElementById('reviewForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
-            const rawText = document.getElementById('text').value.trim();
-            if (!name || !rawText) return;
+            const text = document.getElementById('text').value.trim();
+            if (!name || !text) return;
 
-            const cleanText = censor(rawText);
             const now = new Date();
             const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) + ' at ' + now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
-            const review = { name, text: cleanText, date: dateStr, authorId: getAuthorId() };
+            const review = {
+                name,
+                text,
+                date: dateStr,
+                authorId: getAuthorId()
+            };
+
             const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
             reviews.push(review);
             localStorage.setItem('reviews', JSON.stringify(reviews));
 
+            // Clear form
             document.getElementById('name').value = '';
             document.getElementById('text').value = '';
+            document.getElementById('formStatus').textContent = 'Thank you! Your review will appear below.';
 
             loadReviews();
         });
 
+        // Animate blocks on scroll
+        const blocks = document.querySelectorAll('.block');
+        const blockObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        blocks.forEach(block => blockObserver.observe(block));
+
+        // Initial load
         loadReviews();
     </script>
-    <script>
-    const elements = document.querySelectorAll('.review-form, .review-card');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-    }, { threshold: 0.1 });
-    elements.forEach(el => observer.observe(el));
-</script>
 </body>
 </html>
