@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Отзывы — Атарская лука</title>
+    <title>Reviews — Atarskaya Meadow</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --yellow: #f4d03f; --yellow-light: #fcf3cf; --green: #27ae60; --green-dark: #1e8449; --text: #2c3e50; --bg: #f9f9f9; --white: #ffffff; }
@@ -36,56 +36,61 @@
 </head>
 <body>
     <header class="header">
-        <h1>🌿 Атарская лука</h1>
+        <h1>🌿 Atarskaya Meadow</h1>
         <nav>
             <ul class="nav">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О проекте</a></li>
-                <li><a href="gallery.html">Галерея</a></li>
-                <li><a href="news.html">Новости</a></li>
-                <li><a href="reviews.html" class="active">Отзывы</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="reviews.html" class="active">Reviews</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
         <div class="review-form">
-            <h2>Оставьте отзыв</h2>
+            <h2>Leave your review</h2>
             <form id="reviewForm">
                 <div class="form-group">
-                    <label for="name">Ваше имя</label>
-                    <input type="text" id="name" required placeholder="Иван">
+                    <label for="name">Your name</label>
+                    <input type="text" id="name" required placeholder="E.g. Ivan">
                 </div>
                 <div class="form-group">
-                    <label for="text">Ваш отзыв</label>
-                    <textarea id="text" required placeholder="Напишите, что думаете..."></textarea>
+                    <label for="text">Your review</label>
+                    <textarea id="text" required placeholder="Write what you think..."></textarea>
                 </div>
-                <button type="submit" class="btn">Отправить</button>
+                <button type="submit" class="btn">Send</button>
             </form>
         </div>
 
         <div class="reviews-list" id="reviewsList">
-            <!-- Отзывы будут добавляться сюда -->
+            <!-- Reviews will appear here -->
         </div>
     </div>
 
     <footer class="footer">
-        <p>🌐 Проект «Атарская лука»</p>
+        <p>🌐 "Atarskaya Meadow" project</p>
         <div class="footer-links">
-            <a href="index.html">Главная</a> |
-            <a href="about.html">О проекте</a> |
-            <a href="gallery.html">Галерея</a> |
-            <a href="news.html">Новости</a> |
-            <a href="reviews.html">Отзывы</a> |
-            <a href="contacts.html">Контакты</a>
+            <a href="index.html">Home</a> |
+            <a href="about.html">About</a> |
+            <a href="gallery.html">Gallery</a> |
+            <a href="news.html">News</a> |
+            <a href="reviews.html">Reviews</a> |
+            <a href="contacts.html">Contacts</a>
         </div>
-        <p class="copy">© 2025 Команда 7 класса КФМЛ</p>
+        <p class="copy">© 2026 7th Grade Team, KFML</p>
     </footer>
 
     <script>
-        // Фильтр нецензурных слов
-        const badWords = ['Сука', 'сука', 'блядь', 'пидор', 'еблан', 'пиздец', 'хуй']; // добавьте свои слова
+        // Strict filter for bad language & anime
+        const badWords = [
+          // Harsh obscene words, multiple languages, and anime references
+          'сука','блядь','пидор','еблан','пиздец','хуй','fuck','shit','bitch','asshole','jerk','bastard','moron','cunt','dick','faggot','twat','whore','nigger','nigga','motherfucker','retard','idiot','bollocks','arse','wanker','pussy','slut','cock','douche','damn','fucking','shithead','faggot',
+          // Common anime references (for moderation, per request)
+          'аниме','anime','naruto','one piece','bleach','dragon ball','sakura','naruto','sasuke','otaku','hentai','ecchi','waifu','manga','yaoi','yuri','iseka','senpai','kawaii','うちは','ナルト','アニメ','ドラゴンボール','ワンピース','うずまき','エッチ','ヤオイ','百合'
+        ];
         function censor(text) {
             let cleanText = text;
             badWords.forEach(word => {
@@ -95,7 +100,7 @@
             return cleanText;
         }
 
-        // Загрузка отзывов из localStorage
+        // Load reviews from localStorage
         function loadReviews() {
             const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
             const container = document.getElementById('reviewsList');
@@ -112,7 +117,7 @@
             });
         }
 
-        // Сохранение нового отзыва
+        // Save new review
         document.getElementById('reviewForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
@@ -121,14 +126,13 @@
 
             const cleanText = censor(rawText);
             const now = new Date();
-            const dateStr = now.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) + ' в ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) + ' at ' + now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
             const review = { name, text: cleanText, date: dateStr };
             const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
             reviews.push(review);
             localStorage.setItem('reviews', JSON.stringify(reviews));
 
-            // Очистка формы
             document.getElementById('name').value = '';
             document.getElementById('text').value = '';
 
