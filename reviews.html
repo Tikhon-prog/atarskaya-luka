@@ -23,6 +23,15 @@
         .form-group textarea { resize: vertical; min-height: 100px; }
         .btn { background: var(--green); color: var(--white); padding: 0.8rem 2rem; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
         .btn:hover { background: var(--green-dark); }
+        .review-form, .review-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s, transform 0.4s;
+}
+.review-form.visible, .review-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
         .reviews-list { margin-top: 2rem; }
         .review-card { background: var(--white); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .review-card h3 { color: var(--green-dark); margin-bottom: 0.3rem; }
@@ -141,5 +150,14 @@
 
         loadReviews();
     </script>
+    <script>
+    const elements = document.querySelectorAll('.review-form, .review-card');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
