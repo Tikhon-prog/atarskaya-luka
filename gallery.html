@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея — Атарская лука</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --yellow: #f4d03f; --yellow-light: #fcf3cf; --green: #27ae60; --green-dark: #1e8449; --text: #2c3e50; --bg: #f9f9f9; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--yellow), var(--green)); padding: 1.2rem 1.5rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header h1 { color: var(--white); font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; list-style: none; }
+        .nav a { color: var(--white); text-decoration: none; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 30px; transition: background 0.3s; }
+        .nav a:hover, .nav a.active { background: rgba(255,255,255,0.25); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .gallery-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.03); transition: transform 0.3s; }
+        .gallery-card:hover { transform: translateY(-5px); }
+        .gallery-card img { width: 100%; height: 200px; object-fit: cover; display: block; background: #f0f0f0; }
+        .gallery-card p { padding: 1rem; font-weight: 600; color: var(--green-dark); }
+        .footer { background: var(--green-dark); color: var(--white); padding: 2rem; text-align: center; margin-top: 3rem; }
+        .footer a { color: var(--yellow-light); text-decoration: none; margin: 0 0.5rem; }
+        .footer a:hover { color: var(--yellow); }
+        .footer-links { margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🌿 Атарская лука</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О проекте</a></li>
+                <li><a href="gallery.html" class="active">Галерея</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 style="color: var(--green-dark); text-align: center; margin-bottom: 2rem;">Фотографии природы</h2>
+        <div class="gallery-grid">
+            <!-- Карточки с вашими фото -->
+            <div class="gallery-card">
+                <img src="" alt="Описание">
+                <p>Ваш текст</p>
+            </div>
+            <div class="gallery-card">
+                <img src="" alt="Описание">
+                <p>Ваш текст</p>
+            </div>
+            <div class="gallery-card">
+                <img src="" alt="Описание">
+                <p>Ваш текст</p>
+            </div>
+            <div class="gallery-card">
+                <img src="" alt="Описание">
+                <p>Ваш текст</p>
+            </div>
+            <div class="gallery-card">
+                <img src="" alt="Описание">
+                <p>Ваш текст</p>
+            </div>
+            <div class="gallery-card">
+                <img src="" alt="Описание">
+                <p>Ваш текст</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🌐 Проект «Атарская лука»</p>
+        <div class="footer-links">
+            <a href="index.html">Главная</a> |
+            <a href="about.html">О проекте</a> |
+            <a href="gallery.html">Галерея</a> |
+            <a href="news.html">Новости</a> |
+            <a href="reviews.html">Отзывы</a> |
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <p class="copy">© 2025 Команда 7 класса КФМЛ</p>
+    </footer>
+</body>
+</html>
