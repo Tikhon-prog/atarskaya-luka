@@ -17,6 +17,15 @@
         .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
         .news-item { background: var(--white); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.03); transition: transform 0.3s; }
         .news-item:hover { transform: translateY(-3px); }
+        .news-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s, transform 0.4s;
+}
+.news-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
         .news-item h3 { color: var(--green-dark); margin-bottom: 0.5rem; }
         .news-item .date { color: #888; font-size: 0.9rem; margin-bottom: 0.8rem; }
         .news-item p { color: #555; }
@@ -88,5 +97,14 @@
         </div>
         <p class="copy">© 2026 7th Grade Team, KFML</p>
     </footer>
+    <script>
+    const items = document.querySelectorAll('.news-item');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    items.forEach(item => observer.observe(item));
+</script>
 </body>
 </html>
