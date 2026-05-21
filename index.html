@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атарская лука — главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #f4d03f;
+            --yellow-light: #fcf3cf;
+            --green: #27ae60;
+            --green-dark: #1e8449;
+            --text: #2c3e50;
+            --bg: #f9f9f9;
+            --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--yellow), var(--green)); padding: 1.2rem 1.5rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header h1 { color: var(--white); font-size: 2.2rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; list-style: none; }
+        .nav a { color: var(--white); text-decoration: none; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 30px; transition: background 0.3s; }
+        .nav a:hover, .nav a.active { background: rgba(255,255,255,0.25); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .block { background: var(--white); border-radius: 24px; padding: 3rem 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .block.visible { opacity: 1; transform: translateY(0); }
+        .block h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--green-dark); }
+        .block p, .block ul { margin-bottom: 1rem; font-size: 1.1rem; color: #555; }
+        .btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; border: 2px solid var(--green); }
+        .btn-primary { background: var(--green); color: var(--white); }
+        .btn-primary:hover { background: var(--green-dark); transform: scale(1.05); }
+        .btn-outline { color: var(--green); }
+        .btn-outline:hover { background: var(--green); color: var(--white); }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .gallery-item { background: #f0f0f0; border-radius: 16px; overflow: hidden; transition: transform 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .gallery-item:hover { transform: translateY(-5px); }
+        .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .footer { background: var(--green-dark); color: var(--white); padding: 2rem; text-align: center; margin-top: 3rem; }
+        .footer a { color: var(--yellow-light); text-decoration: none; margin: 0 0.5rem; }
+        .footer a:hover { color: var(--yellow); }
+        .footer-links { margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🌿 Атарская лука</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="about.html">О проекте</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Hero блок (пустой, ваш текст) -->
+        <div class="block visible">
+            <h2>Ваш заголовок</h2>
+            <p>Ваш текст здесь. Расскажите о главной ценности Атарской луки.</p>
+            <a href="about.html" class="btn btn-primary">Узнать больше</a>
+        </div>
+
+        <!-- Блок с преимуществами (пустой) -->
+        <div class="block">
+            <h2>Почему это важно</h2>
+            <p>Ваш текст здесь.</p>
+            <ul>
+                <li>Ваш аргумент 1</li>
+                <li>Ваш аргумент 2</li>
+                <li>Ваш аргумент 3</li>
+            </ul>
+        </div>
+
+        <!-- Галерея (пустые картинки) -->
+        <div class="block">
+            <h2>Фотографии</h2>
+            <p>Ваш текст здесь.</p>
+            <div class="gallery">
+                <div class="gallery-item"><img src="" alt="Фото 1"></div>
+                <div class="gallery-item"><img src="" alt="Фото 2"></div>
+                <div class="gallery-item"><img src="" alt="Фото 3"></div>
+                <div class="gallery-item"><img src="" alt="Фото 4"></div>
+            </div>
+        </div>
+
+        <!-- Призыв к действию (пустой) -->
+        <div class="block">
+            <h2>Присоединяйтесь</h2>
+            <p>Ваш текст здесь.</p>
+            <a href="reviews.html" class="btn btn-outline">Оставить отзыв</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🌐 Проект «Атарская лука» — сохраним природу вместе</p>
+        <div class="footer-links">
+            <a href="index.html">Главная</a> |
+            <a href="about.html">О проекте</a> |
+            <a href="gallery.html">Галерея</a> |
+            <a href="news.html">Новости</a> |
+            <a href="reviews.html">Отзывы</a> |
+            <a href="contacts.html">Контакты</a>
+        </div>
+        <p class="copy">© 2025 Команда 7 класса КФМЛ</p>
+    </footer>
+
+    <script>
+        // Анимация появления блоков при скролле
+        const blocks = document.querySelectorAll('.block');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        blocks.forEach(block => observer.observe(block));
+    </script>
+</body>
+</html>
